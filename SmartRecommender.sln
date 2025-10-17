@@ -1,9 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRecommender", "SmartRecommender\SmartRecommender.csproj", "{4510FFE0-2F93-4F92-8863-3C0FB747F6A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRecommender.Domain", "SmartRecommender.Domain", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRecommender.Domain", "SmartRecommender.Domain\SmartRecommender.Domain.csproj", "{C4E4C2FA-3D08-4404-9591-BD56A425FEED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRecommender.Application", "SmartRecommender.Application", "{3E06331A-056C-4F7E-9676-6E8FAF2A4A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRecommender.Application", "SmartRecommender.Application\SmartRecommender.Application.csproj", "{2B87EE2C-C93D-43F5-ACC4-3986C3A14929}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRecommender.Infrastructure", "SmartRecommender.Infrastructure", "{97AFB7CD-E96D-46CC-9F57-45BDCF4F4FF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRecommender.Infrastructure", "SmartRecommender.Infrastructure\SmartRecommender.Infrastructure.csproj", "{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRecommender.API", "SmartRecommender.API", "{23548590-F4CD-4846-B2E9-4ED5C61CB288}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +29,27 @@ Global
 		{4510FFE0-2F93-4F92-8863-3C0FB747F6A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4510FFE0-2F93-4F92-8863-3C0FB747F6A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4510FFE0-2F93-4F92-8863-3C0FB747F6A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E4C2FA-3D08-4404-9591-BD56A425FEED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E4C2FA-3D08-4404-9591-BD56A425FEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E4C2FA-3D08-4404-9591-BD56A425FEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E4C2FA-3D08-4404-9591-BD56A425FEED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B87EE2C-C93D-43F5-ACC4-3986C3A14929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B87EE2C-C93D-43F5-ACC4-3986C3A14929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B87EE2C-C93D-43F5-ACC4-3986C3A14929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B87EE2C-C93D-43F5-ACC4-3986C3A14929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4510FFE0-2F93-4F92-8863-3C0FB747F6A3} = {23548590-F4CD-4846-B2E9-4ED5C61CB288}
+		{C4E4C2FA-3D08-4404-9591-BD56A425FEED} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2B87EE2C-C93D-43F5-ACC4-3986C3A14929} = {3E06331A-056C-4F7E-9676-6E8FAF2A4A68}
+		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F} = {97AFB7CD-E96D-46CC-9F57-45BDCF4F4FF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {659D2A9C-CF0A-4376-B55C-9541C151C19A}
