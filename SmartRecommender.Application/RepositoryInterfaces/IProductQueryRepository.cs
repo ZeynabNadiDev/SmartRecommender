@@ -1,5 +1,5 @@
-﻿using SmartRecommender.Domain.Entities;
-using SmartRecommender.Domain.Entities.AI.Models;
+﻿using SmartRecommender.Domain.AI.Models;
+using SmartRecommender.Domain.Entities;
 using SmartRecommender.Domain.RepositoryInterfaces;
 using System;
 using System.Collections.Generic;

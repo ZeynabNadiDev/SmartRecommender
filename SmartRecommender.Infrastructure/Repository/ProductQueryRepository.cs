@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRecommender.Application.RepositoryInterfaces;
+using SmartRecommender.Domain.AI.Models;
 using SmartRecommender.Domain.Entities;
-using SmartRecommender.Domain.Entities.AI.Models;
 using SmartRecommender.Domain.RepositoryInterfaces;
 using SmartRecommender.Infrastructure.Context;
 using System;

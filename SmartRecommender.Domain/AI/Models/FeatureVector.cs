@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartRecommender.Domain.Entities.AI.Models
+namespace SmartRecommender.Domain.AI.Models
 {
     public class FeatureVector
     {
@@ -18,5 +18,9 @@ namespace SmartRecommender.Domain.Entities.AI.Models
         public string? Target { get; set; }
 
         public Dictionary<string, string>? Attributes { get; set; } = new();
+        public string? Intent { get; set; }          // e.g. "Buy", "Compare", "Recommend"
+        public string? SortBy { get; set; }          // e.g. "Price", "Rating"
+        public bool SortDescending { get; set; } = true;
+
     }
 }
