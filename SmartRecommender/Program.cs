@@ -4,6 +4,8 @@ using SmartRecommender.Application.RepositoryInterfaces;
 using SmartRecommender.Domain.RepositoryInterfaces;
 using SmartRecommender.Infrastructure.Context;
 using SmartRecommender.Infrastructure.Repository;
+using SmartRecommender.AI.Interfaces;
+using SmartRecommender.AI.Services;
 
 namespace SmartRecommender.API
 {
@@ -29,7 +31,8 @@ namespace SmartRecommender.API
             builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
             builder.Services.AddScoped<IUserQueryRepository, UserQueryRepository>();
             builder.Services.AddScoped<IOrderQueryRepository, OrderQueryRepository>();
-
+            // DI for services
+            builder.Services.AddScoped<IAiRecommenderService, AiRecommenderService>();
             // ✅ Swagger / OpenAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
