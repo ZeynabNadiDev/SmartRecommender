@@ -18,5 +18,9 @@ namespace SmartRecommender.Domain.AI.Models
         public string? Target { get; set; }
 
         public Dictionary<string, string>? Attributes { get; set; } = new();
+        public string? Intent { get; set; }          // e.g. "Buy", "Compare", "Recommend"
+        public string? SortBy { get; set; }          // e.g. "Price", "Rating"
+        public bool SortDescending { get; set; } = true;
+
     }
 }

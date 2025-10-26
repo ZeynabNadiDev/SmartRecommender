@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRecommender.Infrastruc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRecommender.API", "SmartRecommender.API", "{23548590-F4CD-4846-B2E9-4ED5C61CB288}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SmartRecommender.AI", "SmartRecommender.AI", "{744E428D-6C39-44A7-A722-8969D5B7C4B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRecommender.AI", "SmartRecommender.AI\SmartRecommender.AI.csproj", "{A106877D-5A5E-4FB2-8F3C-270DE803ECB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,10 @@ Global
 		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A106877D-5A5E-4FB2-8F3C-270DE803ECB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A106877D-5A5E-4FB2-8F3C-270DE803ECB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A106877D-5A5E-4FB2-8F3C-270DE803ECB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A106877D-5A5E-4FB2-8F3C-270DE803ECB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 		{C4E4C2FA-3D08-4404-9591-BD56A425FEED} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{2B87EE2C-C93D-43F5-ACC4-3986C3A14929} = {3E06331A-056C-4F7E-9676-6E8FAF2A4A68}
 		{60FB9075-CB82-48CB-9C44-DBA6F164FE3F} = {97AFB7CD-E96D-46CC-9F57-45BDCF4F4FF4}
+		{A106877D-5A5E-4FB2-8F3C-270DE803ECB9} = {744E428D-6C39-44A7-A722-8969D5B7C4B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {659D2A9C-CF0A-4376-B55C-9541C151C19A}
