@@ -13,7 +13,8 @@ namespace SmartRecommender.Domain.Entities
         public decimal Price { get; set; }
         public decimal? Discount { get; set; }
         public string? Description { get; set; }
-        public string? Category { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; } = null!;
         public ICollection<User> FavoriteByUsers { get; set; } = new List<User>();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public double? AverageRating { get; set; }
