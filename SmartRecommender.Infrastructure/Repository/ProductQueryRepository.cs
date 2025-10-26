@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartRecommender.Application.RepositoryInterfaces;
+using SmartRecommender.Domain.AI.Models;
 using SmartRecommender.Domain.Entities;
-using SmartRecommender.Domain.Entities.AI.Models;
 using SmartRecommender.Domain.RepositoryInterfaces;
 using SmartRecommender.Infrastructure.Context;
 using System;
@@ -20,7 +20,7 @@ namespace SmartRecommender.Infrastructure.Repository
         {
             var query = _entities.AsNoTracking().AsQueryable();
             if (!string.IsNullOrEmpty(vector.Category))
-                query = query.Where(p => p.Category == vector.Category);
+                query = query.Where(p => p.Category.Name == vector.Category);
             if (vector.MinPrice.HasValue)
                 query = query.Where(p => p.Price >= vector.MinPrice.Value);
 

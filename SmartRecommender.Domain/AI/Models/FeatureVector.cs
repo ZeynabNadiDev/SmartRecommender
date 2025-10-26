@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartRecommender.Domain.Entities.AI.Models
+namespace SmartRecommender.Domain.AI.Models
 {
     public class FeatureVector
     {
