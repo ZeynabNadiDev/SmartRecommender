@@ -19,8 +19,6 @@ namespace SmartRecommender.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public double? AverageRating { get; set; }
         public int PopularityScore { get; set; }
-
-
-
+      
     }
 }

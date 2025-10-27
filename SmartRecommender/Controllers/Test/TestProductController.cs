@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SmartRecommender.Application.RepositoryInterfaces;
+using SmartRecommender.Application.Abstractions.Repositories;
 
 namespace SmartRecommender.Controllers.Test
 {
@@ -7,8 +7,8 @@ namespace SmartRecommender.Controllers.Test
     [Route("api/test/[controller]")]
     public class TestProductController : Controller
     {
-        private readonly IProductQueryRepository _productRepo;
-        public TestProductController(IProductQueryRepository productRepo)
+        private readonly IProductRepository _productRepo;
+        public TestProductController(IProductRepository productRepo)
         {
             _productRepo = productRepo;
         }
@@ -20,7 +20,7 @@ namespace SmartRecommender.Controllers.Test
             return Ok(result);
         }
         [HttpGet("{id:long}")]
-        public async Task<IActionResult> GetById(ulong id, CancellationToken ct)
+        public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
             var item = await _productRepo.GetByIdAsync(id, ct);
             if (item == null)
