@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SmartRecommender.Application\SmartRecommender.Application.csproj" />
-    <ProjectReference Include="..\SmartRecommender.Domain\SmartRecommender.Domain.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NLP\Parsers\" />
+    <ProjectReference Include="..\SmartRecommender.Application\SmartRecommender.Application.csproj" />
+    <ProjectReference Include="..\SmartRecommender.Domain\SmartRecommender.Domain.csproj" />
   </ItemGroup>
 
 </Project>

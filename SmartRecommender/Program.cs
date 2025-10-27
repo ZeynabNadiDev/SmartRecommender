@@ -2,7 +2,10 @@
 using Microsoft.OpenApi.Models;
 using SmartRecommender.AI.Interfaces;
 using SmartRecommender.AI.Services;
+using SmartRecommender.Application.Abstractions.ConectWithAI;
 using SmartRecommender.Application.Abstractions.Repositories;
+using SmartRecommender.Application.Abstractions.Services;
+using SmartRecommender.Application.Services;
 using SmartRecommender.Domain.Entities;
 
 using SmartRecommender.Infrastructure.Context;
@@ -35,7 +38,13 @@ namespace SmartRecommender.API
 
 
             // DI for services
-            builder.Services.AddScoped<AIRecommenderService>();
+            builder.Services.AddHttpClient();
+            builder.Services.AddScoped<IAiRecommenderService, AiRecommenderService>();
+            builder.Services.AddScoped<IIntentExtractor, IntentExtractor>();
+            builder.Services.AddScoped<IProductMatcher, ProductMatcher>();
+            builder.Services.AddScoped<IResponseGenerator, ResponseGenerator>();
+            builder.Services.AddScoped<IRecommenderEngine, AiRecommenderService>();
+            builder.Services.AddScoped<IChatService, ChatService>();
             // ✅ Swagger / OpenAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace SmartRecommender.AI.Interfaces
 {
-    public interface IAiRecommenderService
+    public interface IProductMatcher
     {
-        Task<UserIntent> ExtractUserIntentAsync(string userInput,
+        Task<IEnumerable<Product>> MatchProductsAsync(UserIntent intent,
             CancellationToken cancellationToken);
     }
 }

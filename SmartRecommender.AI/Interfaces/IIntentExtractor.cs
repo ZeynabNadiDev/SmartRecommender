@@ -1,5 +1,4 @@
-﻿using SmartRecommender.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SmartRecommender.AI.Interfaces
 {
-    public interface IAiRecommenderService
+    public interface IIntentExtractor
     {
-        Task<UserIntent> ExtractUserIntentAsync(string userInput,
+        Task<UserIntent> ExtractIntentAsync(string userInput,
             CancellationToken cancellationToken);
     }
 }
