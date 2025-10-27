@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NLP\" />
+    <Folder Include="NLP\Parsers\" />
   </ItemGroup>
 
 </Project>

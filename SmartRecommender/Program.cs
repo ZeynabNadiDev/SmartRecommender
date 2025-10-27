@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using SmartRecommender.Application.RepositoryInterfaces;
-using SmartRecommender.Domain.RepositoryInterfaces;
-using SmartRecommender.Infrastructure.Context;
-using SmartRecommender.Infrastructure.Repository;
 using SmartRecommender.AI.Interfaces;
 using SmartRecommender.AI.Services;
+using SmartRecommender.Application.Abstractions.Repositories;
+using SmartRecommender.Domain.Entities;
+
+using SmartRecommender.Infrastructure.Context;
+using SmartRecommender.Infrastructure.Repositories;
 
 namespace SmartRecommender.API
 {
@@ -27,12 +28,14 @@ namespace SmartRecommender.API
                     sqlOptions => sqlOptions.MigrationsAssembly("SmartRecommender.Infrastructure")));
 
             // ⚙️ DI for generic and specialized repositories
-            builder.Services.AddScoped(typeof(IReadOnlyRepository<>), typeof(ReadOnlyRepository<>));
-            builder.Services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
-            builder.Services.AddScoped<IUserQueryRepository, UserQueryRepository>();
-            builder.Services.AddScoped<IOrderQueryRepository, OrderQueryRepository>();
+            builder.Services.AddScoped(typeof(IReadOnlyRepository<,>), typeof(ReadOnlyRepository<,>));
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+
             // DI for services
-            builder.Services.AddScoped<IAiRecommenderService, AiRecommenderService>();
+            builder.Services.AddScoped<AIRecommenderService>();
             // ✅ Swagger / OpenAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
