@@ -8,6 +8,6 @@ namespace SmartRecommender.Application.Abstractions.ConectWithAI
 {
     public interface IRecommenderEngine
     {
-        Task<UserIntent> ExtractUserIntentAsync(string message, CancellationToken token);
+        Task<string> GetRecommendationAsync(string userMessage, CancellationToken cancellationToken);
     }
 }

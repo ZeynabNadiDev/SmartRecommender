@@ -9,7 +9,6 @@ namespace SmartRecommender.AI.Interfaces
 {
     public interface IAiRecommenderService
     {
-        Task<UserIntent> ExtractUserIntentAsync(string userInput,
-            CancellationToken cancellationToken);
+        Task<string> GetRecommendationAsync(string userMessage, CancellationToken cancellationToken);
     }
 }

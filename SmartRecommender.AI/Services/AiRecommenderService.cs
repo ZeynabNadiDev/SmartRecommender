@@ -25,13 +25,12 @@ namespace SmartRecommender.AI.Services
             _responseGenerator = responseGenerator;
         }
 
-        public async Task<UserIntent> ExtractUserIntentAsync(string userInput, CancellationToken cancellationToken)
+        public async Task<string> GetRecommendationAsync(string userMessage, CancellationToken cancellationToken)
         {
-            var intent = await _intentExtractor.ExtractIntentAsync(userInput, cancellationToken);
-            IEnumerable<Product> matchedProducts = await _productMatcher.MatchProductsAsync(intent, cancellationToken);
-            string response = await _responseGenerator.GenerateResponseAsync(intent, matchedProducts, cancellationToken);
-
-            return intent;
+            var intent = await _intentExtractor.ExtractIntentAsync(userMessage, cancellationToken);
+            var matchedProducts = await _productMatcher.MatchProductsAsync(intent, cancellationToken);
+            var response = await _responseGenerator.GenerateResponseAsync(intent, matchedProducts, cancellationToken);
+            return response;
         }
     }
 }
