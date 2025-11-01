@@ -22,8 +22,8 @@ All filters and seed data verified:
 - Tests confirmed across 5 main user scenarios  
 
 ## 📄 Documentation
-- 🇬🇧 [English Documentation (PDF)](README_EN.pdf)
-- 🇮🇷 [مستندات فارسی (PDF)](README_FA.pdf)
+- [📘 English Technical Document (PDF)](./README_EN.pdf)
+- [📙 مستند فنی فارسی (PDF)](./README_FA.pdf)
 
 ---
 
