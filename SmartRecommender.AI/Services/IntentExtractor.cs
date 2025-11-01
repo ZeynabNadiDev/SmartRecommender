@@ -1,10 +1,7 @@
 ﻿using SmartRecommender.AI.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 
 namespace SmartRecommender.AI.Services
@@ -12,78 +9,117 @@ namespace SmartRecommender.AI.Services
     public class IntentExtractor : IIntentExtractor
     {
         private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration;
-        private readonly string _apiKey;
         private readonly string _model;
         private readonly double _temperature;
-    
-    public IntentExtractor(HttpClient httpClient, IConfiguration configuration)
+        private const string OpenAIEndpoint = "https://api.openai.com/v1/chat/completions";
+
+        public IntentExtractor(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            _configuration = configuration;
 
-            _apiKey = _configuration["OpenAI:ApiKey"];
-            _model = _configuration["OpenAI:Model"] ?? "gpt-4o-mini";
-            _temperature = double.Parse(_configuration["OpenAI:Temperature"] ?? "0.2");
+            var apiKey = configuration["OpenAI:ApiKey"]
+                ?? throw new ArgumentNullException("OpenAI:ApiKey not found in configuration.");
+
+            // Configure HTTP client only once
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            _httpClient.Timeout = TimeSpan.FromSeconds(60);
+
+            _model = configuration["OpenAI:Model"] ?? "gpt-4o-mini";
+            _temperature = double.TryParse(configuration["OpenAI:Temperature"], out var temp) ? temp : 0.2;
         }
+
         public async Task<UserIntent> ExtractIntentAsync(string userInput, CancellationToken cancellationToken = default)
         {
+            // Main prompt for semantic interpretation
             var prompt = $@"
-            You are an intent extraction AI for an e-commerce recommender system.
-            Extract these fields from the user message:
-            - Category (ex: Mobile, Laptop, Headphone)
-            - Keywords (main concepts)
-            - Region (geographic location if mentioned)
-            - DeviceType (optional)
-            - PurchaseIntent (Yes/No depending on action verbs)
-             Return JSON only, with this shape:
-            {{ ""Category"": string, ""Keywords"": [string], ""Region"": string,
-            ""DeviceType"": string, ""PurchaseIntent"": bool }}
-             Message: ""{userInput}""
-             ";
+            You are an intelligent shopping assistant that understands natural language (including Persian/Farsi).
+            Your task is to interpret the user’s intent and convert it into structured JSON for an e-commerce recommender system.
 
-            var requestBody = new
+             Extract intent fields in the following JSON format:
+              {{
+                 ""ActionType"": string,
+                 ""Category"": string,
+                 ""Keywords"": [string],
+                 ""Filters"": {{
+                 ""MinPrice"": decimal | null,
+                 ""MaxPrice"": decimal | null,
+                 ""Brand"": string | null,
+                 ""Color"": string | null,
+                 ""Feature"": string | null
+              }},
+                  ""Confidence"": float,
+                  ""UserId"": string | null,
+                  ""DeviceType"": string | null,
+                  ""Region"": string | null,
+                  ""Season"": string | null,
+                  ""PurchaseIntent"": string | null
+             }}
+
+            Guidelines:
+            - Use null for missing or uncertain data.
+            - Convert Farsi expressions like 'زیر ۵۰۰۰ تومن' or 'less than 5000 toman' → MaxPrice: 5000.
+            - Convert expressions like 'بیشتر از ۱۰۰۰۰' or 'more than 10000' → MinPrice: 10000.
+            - Output strictly valid JSON only (no markdown, no commentary).
+            User message:
+            { userInput}
+            
+            ";
+
+            var body = new
             {
                 model = _model,
                 messages = new[]
                 {
-                    new { role = "system", content = "You are a precise intent" +
-                    " extractor for recommender models." },
+                    new
+                    {
+                        role = "system",
+                        content = "You are a smart human‑like intent interpreter for a recommender system. " +
+                                  "Understand the user's message in any language and respond ONLY with valid JSON."
+                    },
                     new { role = "user", content = prompt }
                 },
                 temperature = _temperature
             };
-            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, 
-                "application/json");
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
-            var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content, cancellationToken);
-            var responseString = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (!response.IsSuccessStatusCode)
+            var jsonBody = JsonSerializer.Serialize(body);
+            var httpContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+            try
             {
-                throw new HttpRequestException($"OpenAI API Error: {response.StatusCode} -> {responseString}");
+                var response = await _httpClient.PostAsync(OpenAIEndpoint, httpContent, cancellationToken);
+                var responseText = await response.Content.ReadAsStringAsync(cancellationToken);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new HttpRequestException($"OpenAI API Error: {response.StatusCode} -> {responseText}");
+
+                using var doc = JsonDocument.Parse(responseText);
+                var contentText = doc.RootElement
+                    .GetProperty("choices")[0]
+                    .GetProperty("message")
+                    .GetProperty("content")
+                    .GetString()?.Trim();
+
+                if (string.IsNullOrWhiteSpace(contentText))
+                    throw new JsonException("Empty AI response content.");
+
+                // Clean possible formatting artifacts
+                contentText = contentText.Trim('`', '\n', '\r', ' ');
+
+                var userIntent = JsonSerializer.Deserialize<UserIntent>(
+                    contentText,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        ReadCommentHandling = JsonCommentHandling.Skip
+                    });
+
+                return userIntent ?? new UserIntent();
             }
-            using var doc = JsonDocument.Parse(responseString);
-            var messageText = doc.RootElement
-                                 .GetProperty("choices")[0]
-                                 .GetProperty("message")
-                                 .GetProperty("content")
-                                 .GetString();
-            var intent = JsonSerializer.Deserialize<UserIntent>(messageText, new JsonSerializerOptions
+            catch (Exception ex) when (ex is TaskCanceledException || ex is HttpRequestException || ex is JsonException)
             {
-                PropertyNameCaseInsensitive = true
-            });
-            intent ??= new UserIntent
-            {
-                Category = string.Empty,
-                Keywords = new(),
-                Region = string.Empty,
-                DeviceType = string.Empty,
-                PurchaseIntent = "Browsing"
-            };
-
-            return intent;
-
+                // Return safe fallback structure on failure
+                return new UserIntent();
+            }
         }
     }
- }
+}
