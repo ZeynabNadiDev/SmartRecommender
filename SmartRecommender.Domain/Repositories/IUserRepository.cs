@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartRecommender.Application.Abstractions.Repositories
+namespace SmartRecommender.Domain.Repositories
 {
     public interface IUserRepository:IReadOnlyRepository<User,int>
     {

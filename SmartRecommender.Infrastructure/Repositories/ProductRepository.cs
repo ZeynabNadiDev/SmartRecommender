@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SmartRecommender.Application.Abstractions.Repositories;
+using SmartRecommender.Domain.Repositories;
 using SmartRecommender.Domain.AI.Models;
 using SmartRecommender.Domain.Entities;
 using SmartRecommender.Infrastructure.Context;
