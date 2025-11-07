@@ -1,6 +1,6 @@
 ﻿
 
-namespace SmartRecommender.Application.Abstractions.Repositories
+namespace SmartRecommender.Domain.Repositories
 {
     public interface IReadOnlyRepository<TEntity, TKey> where TEntity : class
     {

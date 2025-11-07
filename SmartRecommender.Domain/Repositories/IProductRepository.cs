@@ -1,7 +1,7 @@
 ﻿using SmartRecommender.Domain.AI.Models;
 using SmartRecommender.Domain.Entities;
 
-namespace SmartRecommender.Application.Abstractions.Repositories
+namespace SmartRecommender.Domain.Repositories
 {
     public interface IProductRepository:IReadOnlyRepository<Product,int>
     {
